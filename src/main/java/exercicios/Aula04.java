@@ -48,9 +48,8 @@ public class Aula04 extends Aula {
     }
 
     protected double maiorNotaCursoAndSexo(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso, final char sexo) {
-        final double maiorNota = estudantes
-                .stream()
-                .filter(e -> e.getSexo() == sexo)
+        final double maiorNota = stream
+                .filter(e -> e.getSexo() == sexo && e.getCurso() == curso)
                 .mapToDouble(Estudante::getNota)
                 .max()
                 .orElse(0.0);
@@ -66,6 +65,7 @@ public class Aula04 extends Aula {
 
     protected double mediaNotaTodosEstudantesCurso(@NonNull final Stream<Estudante> stream, @NonNull final Curso curso){
         final double mediaGeral = stream
+                .filter(e -> e.getCurso() == curso)
                 .mapToDouble(Estudante::getNota)
                 .average()
                 .orElse(0.0);
@@ -83,7 +83,7 @@ public class Aula04 extends Aula {
 
     protected double maiorNotaHomens(@NonNull final Stream<Estudante> stream){
         final double maiorNotaHomens = stream
-                .filter(e -> e.isHomem())
+                .filter(Estudante::isHomem)
                 .mapToDouble(Estudante::getNota)
                 .max()
                 .orElse(0.0);
